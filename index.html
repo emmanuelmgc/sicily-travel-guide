@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>阳光与盐的交响曲 — 7日包车之旅</title>
+<title>7日包车之旅｜解锁地中海的阳光与浪漫</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap');
 
@@ -21,6 +21,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
     font-family: 'Noto Sans SC', sans-serif;
@@ -51,13 +52,18 @@
     background: url('https://i.imgur.com/aYZEgPm.jpg') center/cover no-repeat;
     opacity: 0.25;
     filter: blur(2px);
+    animation: coverPulse 8s ease-in-out infinite alternate;
+  }
+  @keyframes coverPulse {
+    0% { transform: scale(1.05); opacity: 0.22; }
+    100% { transform: scale(1.12); opacity: 0.28; }
   }
   .cover::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    height: 200px;
-    background: linear-gradient(transparent, var(--warm-white));
+    height: 280px;
+    background: linear-gradient(transparent 0%, rgba(253,248,240,0.3) 40%, var(--warm-white) 100%);
   }
   .cover-content {
     position: relative;
@@ -108,6 +114,32 @@
     font-size: 14px;
     letter-spacing: 3px;
     border-radius: 2px;
+    transition: all 0.4s ease;
+  }
+  .cover-date:hover {
+    background: var(--gold);
+    color: #1a1a2e;
+  }
+  .cover-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 2px;
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+  .cover-scroll::after {
+    content: '↓';
+    display: block;
+    margin-top: 6px;
+    font-size: 16px;
+  }
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
   }
 
   /* ===== OVERVIEW ===== */
@@ -294,6 +326,15 @@
     letter-spacing: 3px;
     font-weight: 300;
   }
+  .schedule-caption .caption-num {
+    display: inline-block;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    vertical-align: middle;
+    margin: 0 2px;
+  }
   .day-badge {
     display: inline-block;
     background: var(--gold);
@@ -363,12 +404,15 @@
   .photo-card .overlay h4 {
     font-family: 'Noto Serif SC', serif;
     font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 2px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    letter-spacing: 1px;
   }
   .photo-card .overlay p {
     font-size: 12px;
-    opacity: 0.8;
+    opacity: 0.7;
+    font-weight: 300;
+    letter-spacing: 0.5px;
   }
 
   /* ===== DAY CARDS ===== */
@@ -410,37 +454,83 @@
     columns: 1;
   }
   .day-content p {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     font-size: 15px;
+  }
+  .day-content p:last-child {
+    margin-bottom: 0;
   }
 
   /* ===== FOOD TIP ===== */
   .food-tip {
     background: linear-gradient(135deg, #FFF9F5, #FFF5EE);
     border: 1px solid #F0E0D0;
-    border-radius: 10px;
-    padding: 18px 22px;
+    border-radius: 12px;
+    padding: 20px 24px;
     margin: 24px 0;
     font-size: 14px;
     position: relative;
     overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .food-tip:hover {
+    box-shadow: 0 4px 16px rgba(184,80,60,0.08);
   }
   .food-tip::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 3px;
+    width: 4px;
     height: 100%;
     background: linear-gradient(180deg, var(--accent), var(--gold));
-    border-radius: 3px 0 0 3px;
+    border-radius: 4px 0 0 4px;
   }
   .food-tip-title {
     font-weight: 600;
     color: var(--accent);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     font-size: 13px;
     letter-spacing: 1px;
+  }
+
+  /* ===== CITYWALK LINK ===== */
+  .citywalk-box {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #faf7f2, #f5f0e8);
+    border-radius: 12px;
+    border-left: 3px solid var(--gold);
+    font-size: 13px;
+    color: var(--text-dark);
+    transition: all 0.3s;
+  }
+  .citywalk-box:hover {
+    box-shadow: 0 4px 12px rgba(196,148,58,0.08);
+  }
+  .citywalk-box strong {
+    color: var(--accent);
+    font-size: 14px;
+  }
+  .citywalk-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, var(--text-dark), #3a3a4a);
+    color: var(--gold-light);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+  .citywalk-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    background: linear-gradient(135deg, #3a3a4a, #4a4a5a);
   }
 
   /* ===== SPLIT DAY ===== */
@@ -452,20 +542,28 @@
   }
   .route-card {
     border: 1px solid #e8e0d4;
-    border-radius: 8px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 24px;
     background: #fff;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .route-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(196,148,58,0.1);
+    transform: translateY(-2px);
   }
   .route-card.active {
     border-color: var(--gold);
-    box-shadow: 0 2px 12px rgba(196,148,58,0.1);
+    box-shadow: 0 4px 16px rgba(196,148,58,0.08);
   }
   .route-label {
     display: inline-block;
     font-weight: 600;
     font-size: 14px;
     color: var(--gold-dark);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
   }
 
   /* ===== CHECKLIST ===== */
@@ -478,32 +576,38 @@
   .check-item {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
     font-size: 14px;
-    padding: 14px 16px;
-    background: rgba(255,255,255,0.8);
-    border-radius: 8px;
-    border: 1px solid rgba(196,148,58,0.12);
-    transition: all 0.2s;
+    padding: 16px 18px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 12px;
+    border: 1px solid rgba(196,148,58,0.1);
+    transition: all 0.3s;
   }
   .check-item:hover {
     background: #fff;
     border-color: var(--gold-light);
-    box-shadow: 0 2px 8px rgba(196,148,58,0.08);
+    box-shadow: 0 4px 16px rgba(196,148,58,0.1);
+    transform: translateY(-2px);
   }
   .check-icon {
-    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--gold-light), #f5efe6);
+    border-radius: 10px;
     font-size: 16px;
     flex-shrink: 0;
-    margin-top: 1px;
   }
 
   /* ===== DIVIDER ===== */
   .divider {
     text-align: center;
     margin: 56px auto;
-    width: 60px;
-    height: 2px;
+    width: 120px;
+    height: 1px;
     background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
     position: relative;
   }
@@ -516,7 +620,19 @@
     color: var(--gold);
     font-size: 8px;
     background: var(--warm-white);
-    padding: 0 8px;
+    padding: 0 12px;
+  }
+  .divider::after {
+    content: '◆';
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    color: var(--gold-light);
+    font-size: 4px;
+    opacity: 0.5;
+    background: var(--warm-white);
+    padding: 0 6px;
   }
 
   /* ===== GOOGLE MAP ===== */
@@ -524,22 +640,23 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 28px;
+    padding: 14px 32px;
     background: linear-gradient(135deg, var(--text-dark), #3a3a4a);
     color: var(--gold-light);
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 14px;
-    margin: 24px 0;
+    margin: 32px 0;
     transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    letter-spacing: 0.5px;
   }
-  .map-link:hover { background: linear-gradient(135deg, #3a3a4a, #4a4a5a); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  .map-link:hover { background: linear-gradient(135deg, #3a3a4a, #4a4a5a); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
 
   /* ===== FOOTER ===== */
   .footer {
     text-align: center;
-    padding: 56px 32px;
+    padding: 64px 32px;
     color: var(--text-light);
     font-size: 13px;
     border-top: 1px solid #ece4d8;
@@ -548,9 +665,16 @@
   .footer .heart { color: var(--accent); }
   .footer p:first-child {
     font-family: 'Noto Serif SC', serif;
-    font-size: 15px;
+    font-size: 16px;
     color: var(--text-dark);
-    letter-spacing: 4px;
+    letter-spacing: 5px;
+    margin-bottom: 12px;
+  }
+  .footer .footer-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold-light);
+    margin: 16px auto;
   }
 
   /* ===== RESPONSIVE ===== */
@@ -562,6 +686,8 @@
     .section, .section-intro { padding: 40px 20px; }
     .cover-content { padding: 24px; }
     .day-number { font-size: 36px; }
+    .cover-scroll { display: none; }
+    .citywalk-link { display: block; text-align: center; }
   }
 
   /* ===== PRINT ===== */
@@ -582,6 +708,7 @@
     <p class="cover-subtitle">7日包车之旅 ｜ 解锁地中海的阳光与浪漫</p>
     <div class="cover-date">2026.05.02 — 05.08</div>
   </div>
+  <div class="cover-scroll">向下滚动探索</div>
 </div>
 
 <!-- ==================== INTRO STORY ==================== -->
@@ -596,7 +723,7 @@
 <!-- ==================== PHOTO GRID ==================== -->
 <div class="section">
   <div class="section-label">Must-See Moments</div>
-  <h2>六大必打卡瞬间</h2>
+  <h2>值得期待的六个瞬间</h2>
   <div class="photo-grid">
     <div class="photo-card">
       <img src="https://i.imgur.com/vrOQDar.jpg" alt="蒙雷阿莱大教堂马赛克">
@@ -776,7 +903,7 @@
         </table>
       </div>
     </div>
-    <p class="schedule-caption">7天 · 4城 · 2条精选分线 · 1场婚礼 💍</p>
+    <p class="schedule-caption"><span class="caption-num">7</span>天 · <span class="caption-num">4</span>城 · <span class="caption-num">2</span>条精选分线 · <span class="caption-num">1</span>场婚礼 💍</p>
   </div>
 
 
@@ -802,12 +929,17 @@
       </div>
     </div>
     <div class="day-content">
-      <p>抵达巴勒莫 Falcone-Borsellino 机场后，包车先上山前往<strong>埃里切（Erice）</strong>——一座被薄雾缭绕的中世纪山城。石板小巷、古堡遗迹、以及无处不在的海岸俯瞰，让这里成为西西里最具浪漫气息的地方之一。山顶气温比山下低3-5°C，建议带一件薄外套。</p>
-      <p>下午下山前往<strong>特拉帕尼</strong>，在老城轻逛——鱼市、教堂和海边步道构成了这座小城懒洋洋的生活节奏。</p>
-      <p>傍晚前往<strong>盐田自然保护区（Saline di Trapani e Paceco）</strong>。白色的盐堆、荷兰式风车和波光粼粼的蒸发池，在五月黄昏的橙红光线下如诗如画。今晚入住盐田畔的 Phi Hotel La Tonnara di Bonagia，推开窗便是日落余晖。</p>
+      <p>抵达巴勒莫机场后，包车先上山前往<strong>埃里切（Erice）</strong>——一座被薄雾笼罩的中世纪山城。石板小巷、古堡遗迹和随处可见的海岸俯瞰，是西西里最有氛围的地方之一。山上比山下冷3-5°C，带件薄外套。</p>
+      <p>下午下山到<strong>特拉帕尼</strong>，老城不大，鱼市、教堂和海边步道慢慢逛就好。</p>
+      <p>傍晚去<strong>盐田自然保护区（Saline di Trapani e Paceco）</strong>看日落。白色的盐堆、荷兰式风车和波光粼粼的蒸发池，五月黄昏的光线刚刚好。今晚住在盐田旁，推开窗就是日落。</p>
       <div class="food-tip">
         <div class="food-tip-title">🍽️ 美食建议</div>
         特拉帕尼以 couscous di pesce（鱼蒸粗麦粉）闻名；山城埃里切的 Maria Grammatico 糕点铺——杏仁饼干和 genovesi 是必买伴手礼。
+      </div>
+      <div class="citywalk-box">
+        <strong>🚶 特拉帕尼老城 City Walk</strong><br>
+        Porta delle Colonne → Chiesa del Purgatorio → Corso Vittorio Emanuele → 老城鱼市 La Pescheria → Torre di Ligny 灯塔日落
+        <br><a class="citywalk-link" href="https://www.google.com/maps/dir/?api=1&origin=Porta+delle+Colonne,+Trapani&destination=Torre+di+Ligny,+Trapani&waypoints=Chiesa+del+Purgatorio,+Trapani%7CCorso+Vittorio+Emanuele,+Trapani%7CLa+Pescheria,+Trapani&travelmode=walking" target="_blank">🗺️ 点击打开特拉帕尼老城City Walk路线</a>
       </div>
     </div>
   </div>
@@ -822,12 +954,17 @@
       </div>
     </div>
     <div class="day-content">
-      <p>早上出发，先绕道<strong>塞杰斯塔（Segesta）考古公园</strong>。这座从未完工的多立克神庙矗立在荒野山丘之上，周围没有任何现代建筑的干扰——公元前5世纪的苍茫气息扑面而来。继续往上，山顶古希腊剧场俯瞰整个山谷，壮阔无边。建议提前在线购票（约€16）避开排队。</p>
-      <p>继续包车约40分钟抵达<strong>蒙雷阿莱（Monreale）</strong>，参观主教座堂及其回廊。这座12世纪的杰作融合了诺曼、拜占庭和阿拉伯风格，超过6,000平方米的金色马赛克覆盖教堂内壁，堪称中世纪艺术的巅峰。</p>
-      <p>下午进入巴勒莫市区。傍晚前往<strong>巴勒莫大剧院（Teatro Massimo）</strong>前广场感受城市气息，随后漫步海边，看太阳沉入地中海。</p>
+      <p>早上出发，先去<strong>塞杰斯塔（Segesta）考古公园</strong>。一座从未完工的多立克神庙矗立在荒野山丘上，周围没有现代建筑，安静得像是公元前5世纪。山顶还有一座古希腊剧场，俯瞰整个山谷。建议提前在线购票（约€16）。</p>
+      <p>继续包车约40分钟到<strong>蒙雷阿莱（Monreale）</strong>，看主教座堂和回廊。这座12世纪的建筑融合了诺曼、拜占庭和阿拉伯三种风格，教堂内壁超过6,000平方米的金色马赛克确实令人震撼。</p>
+      <p>下午进入巴勒莫市区。傍晚在<strong>大剧院（Teatro Massimo）</strong>前广场坐坐，然后去海边看日落。</p>
       <div class="food-tip">
         <div class="food-tip-title">🍽️ 美食建议</div>
         巴勒莫街头必试：arancini（炸饭团）、pane con la milza（小牛肉三明治）；晚餐推荐 pasta con le sarde（沙丁鱼意面），感受阿拉伯与意大利的味觉融合。
+      </div>
+      <div class="citywalk-box">
+        <strong>🚶 巴勒莫老城 City Walk</strong><br>
+        Teatro Massimo 歌剧院 → Quattro Canti 四角广场 → Fontana Pretoria 羞耻喷泉 → 巴勒莫大教堂 → Ballarò 百年市场 → 海边日落
+        <br><a class="citywalk-link" href="https://www.google.com/maps/dir/?api=1&origin=Teatro+Massimo,+Palermo&destination=Foro+Italico,+Palermo&waypoints=Quattro+Canti,+Palermo%7CFontana+Pretoria,+Palermo%7CCattedrale+di+Palermo%7CBallar%C3%B2,+Palermo&travelmode=walking" target="_blank">🗺️ 点击打开巴勒莫老城City Walk路线</a>
       </div>
     </div>
   </div>
@@ -842,12 +979,17 @@
       </div>
     </div>
     <div class="day-content">
-      <p>上午先在巴勒莫闲逛<strong>百年早市</strong>（Ballarò 或 Vucciria），感受西西里最生动的生活场景——色彩缤纷的水果摊、新鲜海鲜、和嘈杂热情的小贩叫卖声。</p>
-      <p>随后参观<strong>诺曼王宫（Palazzo dei Normanni）</strong>及其帕拉蒂纳礼拜堂（Cappella Palatina）——金色马赛克、拜占庭穹顶与诺曼建筑的三重融合，是巴勒莫最不能错过的室内空间之一。</p>
-      <p>下午包车约1.5小时沿北海岸高速前往<strong>切法卢</strong>。傍晚抵达，在金色沙滩旁散步，远眺山顶 La Rocca 古堡，享受北海岸的温柔晚风。今晚入住 Al Pescatore Hotel，枕着海浪声入睡。</p>
+      <p>上午在巴勒莫逛<strong>早市</strong>（Ballarò 或 Vucciria），感受这座城市最鲜活的一面——水果摊、海鲜、小贩的叫卖声和咖啡香。</p>
+      <p>然后去<strong>诺曼王宫（Palazzo dei Normanni）</strong>和帕拉蒂纳礼拜堂（Cappella Palatina），金色马赛克、拜占庭穹顶和诺曼建筑融在一起，是巴勒莫最值得看的一间屋子。</p>
+      <p>下午包车约1.5小时沿北海岸前往<strong>切法卢</strong>。傍晚在沙滩散步，远眺山顶 La Rocca 古堡，享受海风。今晚入住 Al Pescatore Hotel，枕着海浪声入睡。</p>
       <div class="food-tip">
         <div class="food-tip-title">🍽️ 美食建议</div>
         切法卢海滨餐厅主打新鲜渔获——spigola（鲈鱼）和 gamberi（大虾）是菜单主角。下午茶别错过 granita（冰沙）配 brioche——西西里经典味道。
+      </div>
+      <div class="citywalk-box">
+        <strong>🚶 切法卢老城 City Walk</strong><br>
+        切法卢大教堂（马赛克圣像）→ Corso Ruggero 主街漫步 → Lavatoio Medievale 中世纪洗衣坊 → 渔港码头 → 海滨长廊日落
+        <br><a class="citywalk-link" href="https://www.google.com/maps/dir/?api=1&origin=Cattedrale+di+Cefal%C3%B9&destination=Lungomare+Giuseppe+Giardina,+Cefal%C3%B9&waypoints=Corso+Ruggero,+Cefal%C3%B9%7CLavatoio+Medievale,+Cefal%C3%B9%7CPorto+di+Cefal%C3%B9&travelmode=walking" target="_blank">🗺️ 点击打开切法卢老城City Walk路线</a>
       </div>
     </div>
   </div>
@@ -862,12 +1004,17 @@
       </div>
     </div>
     <div class="day-content">
-      <p>上午在切法卢大教堂（Cattedrale di Cefalù）感受马赛克基督圣像的肃穆，随后在老城巷弄间闲逛——陶瓷工艺品店和手工冰淇淋店是消磨时间的最好理由。</p>
-      <p>午后包车约2小时沿A19高速公路抵达卡塔尼亚。一路沿北海岸行驶，窗外的风景从沙滩渐变为橄榄林和火山丘陵，到达时正好赶上黄昏。</p>
-      <p>夜晚的卡塔尼亚是火山石巴洛克的舞台：Via Etnea 大街灯火通明，Piazza del Duomo 的大象喷泉在灯光下格外迷人。找一家吧台咖啡店，像本地人一样站着喝一杯 espresso 或 granita，感受这座城市的脉搏。</p>
+      <p>上午在切法卢大教堂看马赛克圣像，然后去老城巷弄里闲逛——陶瓷店和手工冰淇淋店是消磨时间的最好理由。</p>
+      <p>午后包车约2小时前往卡塔尼亚。一路沿着北海岸，窗外从沙滩渐变为橄榄林和火山丘陵，到的时候正好赶上黄昏。</p>
+      <p>晚上的卡塔尼亚属于火山石巴洛克：Via Etnea 大街灯火通明，Piazza del Duomo 的大象喷泉在灯光下很漂亮。找一家吧台咖啡店，像本地人一样站着喝一杯 espresso。</p>
       <div class="food-tip">
         <div class="food-tip-title">🍽️ 美食建议</div>
-        卡塔尼亚街头必试：arancini（炸饭团，推荐 Rossi 铺子）、sfcincione（厚底披萨）、以及 pistacchio（开心果）一切——冰淇淋、甜品、甚至意面都有开心果版本。夜宵尝试一下 horse meat kebab（马肉串），这是卡塔尼亚独特的夜生活味道。
+        卡塔尼亚街头必试：arancini（炸饭团，推荐 Rossi 铺子）、sfincione（厚底披萨）、以及 pistacchio（开心果）一切——冰淇淋、甜品、甚至意面都有开心果版本。
+      </div>
+      <div class="citywalk-box">
+        <strong>🚶 卡塔尼亚老城 City Walk</strong><br>
+        Piazza del Duomo（大象喷泉）→ Via Crociferi 巴洛克教堂群 → Piazza Università → Via Etnea 主街 → 渔市 La Pescheria → Castello Ursino 城堡
+        <br><a class="citywalk-link" href="https://www.google.com/maps/dir/?api=1&origin=Piazza+del+Duomo,+Catania&destination=Castello+Ursino,+Catania&waypoints=Via+Crociferi,+Catania%7CPiazza+Universit%C3%A0,+Catania%7CVia+Etnea,+Catania%7CLa+Pescheria,+Catania&travelmode=walking" target="_blank">🗺️ 点击打开卡塔尼亚老城City Walk路线</a>
       </div>
     </div>
   </div>
@@ -882,9 +1029,12 @@
       </div>
     </div>
     <div class="day-content">
-      <p>今天是特别的一天！全天参加婚礼仪式与庆典。</p>
-      <p>婚礼前后，如果有空闲时间，可以在卡塔尼亚市区放松：Piazza Universitaria 附近的精品咖啡店，或者 Via Crociferi 的巴洛克教堂群都值得一看。这座城市本身就是活着的博物馆。</p>
-      <p>晚上，和来自世界各地的宾客一起，在西西里的星空下举杯庆祝。这将是旅程中最温暖的记忆。</p>
+      <div style="background: linear-gradient(135deg, #FFF9F5, #FFF5EE); border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; border: 1px solid rgba(184,80,60,0.1); text-align: center;">
+        <div style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--accent); margin-bottom: 8px; letter-spacing: 2px;">The Big Day</div>
+        <p style="font-size: 15px; margin-bottom: 0;">今天是特别的一天！全天参加婚礼仪式与庆典。</p>
+      </div>
+      <p>婚礼前后如果有空闲，可以在卡塔尼亚市区走走——Piazza Università 附近的咖啡店不错，Via Crociferi 的巴洛克教堂群也值得一看。</p>
+      <p>晚上和来自世界各地的朋友们一起庆祝。这大概是一周里最开心的夜晚。</p>
     </div>
   </div>
 
@@ -898,19 +1048,19 @@
       </div>
     </div>
     <div class="day-content">
-      <p>无论选哪条线，早上先去<strong>卡塔尼亚百年鱼市场（La Pescheria）</strong>感受一下——这个运转了几百年的露天海鲜市场是整个西西里最具冲击力的早晨景象：堆成山的金枪鱼、叫卖声、海腥味和摩肩接踵的人群，活力与混乱共存。</p>
+      <p>早上可以去<strong>卡塔尼亚百年鱼市场（La Pescheria）</strong>逛一圈。这个运转了几百年的露天市场是西西里最有烟火气的地方——堆成山的金枪鱼、叫卖声和海腥味，热闹得很。</p>
     </div>
     <div class="split-routes">
       <div class="route-card active">
-        <div class="route-label">🏝️ A线：文化与海岛</div>
-        <p style="font-size:14px; margin-bottom:8px;">包车约1小时前往<strong>陶尔米纳（Taormina）</strong>，参观古希腊剧场——建在悬崖上的剧院背后是碧蓝的伊奥尼亚海和冒烟的埃特纳火山，全西西里最壮观的舞台背景。</p>
-        <p style="font-size:14px; margin-bottom:8px;">前往<strong>伊索拉贝拉（Isola Bella）</strong>，乘坐玻璃底船出海<strong>追海豚</strong>——五月正是海豚出没的高峰季，运气好时能与成群海豚同行。</p>
+        <div class="route-label">🏝️ A线：陶尔米纳 + 海岛</div>
+        <p style="font-size:14px; margin-bottom:8px;">包车约1小时到<strong>陶尔米纳（Taormina）</strong>，看古希腊剧场。建在悬崖上的剧院，背后是伊奥尼亚海和远处的埃特纳火山，是全西西里最漂亮的一处景点。</p>
+        <p style="font-size:14px; margin-bottom:8px;">然后去<strong>伊索拉贝拉（Isola Bella）</strong>，坐玻璃底船出海<strong>追海豚</strong>——五月正是海豚活跃的季节。</p>
         <p style="font-size:13px; color:var(--text-light);">古希腊剧场门票约€10；玻璃底船追海豚约€25-35/人，建议提前预约</p>
       </div>
       <div class="route-card">
-        <div class="route-label">🌋 B线：火山徒步 + 酒庄</div>
-        <p style="font-size:14px; margin-bottom:8px;">包车约1小时抵达<strong>Rifugio Sapienza</strong>（海拔1900m），埃特纳火山南坡登山起点。多条线路可选：轻松环线看最近喷发的火山口和熔岩地貌；体力充足可挑战更高海拔。黑色火山渣、硫磺裂缝与远处蔚蓝海岸线的对比，仿佛踏上另一个星球。</p>
-        <p style="font-size:14px; margin-bottom:8px;">下山后前往埃特纳山坡<strong>酒庄品酒</strong>——火山岩土壤孕育出西西里最个性的葡萄酒（Nerello Mascalese），一杯红酒配火山日落，是完美的收尾。</p>
+        <div class="route-label">🌋 B线：埃特纳火山 + 酒庄</div>
+        <p style="font-size:14px; margin-bottom:8px;">包车约1小时到<strong>Rifugio Sapienza</strong>（海拔1900m），埃特纳火山南坡的登山起点。轻松环线可以看最近的火山口和熔岩地貌，体力好的可以走更远的线路。黑色火山渣和远处蓝色海岸线的对比，像是到了另一个星球。</p>
+        <p style="font-size:14px; margin-bottom:8px;">下山后去山腰的<strong>酒庄品酒</strong>——火山岩土壤种出来的 Nerello Mascalese 是西西里最有特色的红酒，配火山日落，刚刚好。</p>
         <p style="font-size:13px; color:var(--text-light);">夏季游人众多，建议提前购票；防晒及适当遮阳装备必备；酒庄建议提前预约</p>
       </div>
     </div>
@@ -927,11 +1077,16 @@
     </div>
     <div class="day-content">
       <p>最后一天，包车前往东南方的巴洛克双子城。</p>
-      <p>先到<strong>诺托（Noto）</strong>——这座因1693年大地震后重建的城镇是"晚期巴洛克城镇群"世界遗产的核心代表。蜂蜜色的石灰岩建筑沿山坡排列，Cattedrale di San Nicolò 前的宏伟阶梯是最标志性的画面。</p>
-      <p>继续前往<strong>莫迪卡（Modica）</strong>，这座建在峡谷两侧的山城以其独特的阿兹特克式巧克力制作工艺闻名。Antica Dolceria Bonajuto 是百年老店，品尝原味巧克力（不加糖、不加可可脂的传统配方）是一次特别的味觉体验。</p>
+      <p>先到<strong>诺托（Noto）</strong>。这座因1693年大地震后重建的小城是世界遗产"晚期巴洛克城镇群"的代表。蜂蜜色的石灰岩建筑沿山坡排列，大教堂前的阶梯是最标志性的画面。</p>
+      <p>然后去<strong>莫迪卡（Modica）</strong>。这座建在峡谷两侧的山城以阿兹特克式巧克力闻名——Antica Dolceria Bonajuto 是百年老店，不加糖、不加可可脂的传统配方，吃起来是一种很特别的体验。</p>
       <div class="food-tip">
         <div class="food-tip-title">🍽️ 美食与伴手礼</div>
         莫迪卡巧克力是最值得带回家的伴手礼——Bonajuto 的 vanilla、cinnamon 和 pepper 味都值得尝试。诺托的 almond granita 配 brioche 也是完美的午后甜品。返程前，记得在卡塔尼亚买一些开心果甜品和 pistacchio cream 带走。
+      </div>
+      <div class="citywalk-box">
+        <strong>🚶 诺托老城 City Walk</strong><br>
+        Porta Reale 皇家城门 → Chiesa di San Carlo Borromeo → Cattedrale di San Nicolò（阶梯广场）→ Palazzo Ducezio → Via Nicolaci（花神阳台）
+        <br><a class="citywalk-link" href="https://www.google.com/maps/dir/?api=1&origin=Porta+Reale,+Noto&destination=Via+Nicolaci,+Noto&waypoints=Chiesa+di+San+Carlo+Borromeo,+Noto%7CCattedrale+di+San+Nicol%C3%B2,+Noto%7CPalazzo+Ducezio,+Noto&travelmode=walking" target="_blank">🗺️ 点击打开诺托老城City Walk路线</a>
       </div>
       <p>傍晚返回卡塔尼亚，结束这一场阳光与盐交织的西西里之旅。希望这片地中海岛屿的温暖与浪漫，会在你心中留下长久的余味。</p>
     </div>
@@ -959,7 +1114,7 @@
     </div>
     <div class="check-item">
       <span class="check-icon">👗</span>
-      <span><strong>着装</strong>：参观教堂需遮盖肩膀和膝盖，建议携带一条薄围巾；舒适步行鞋（石板路多）</span>
+      <span><strong>着装</strong>：参观教堂需遮盖肩膀和膝盖，建议带一条薄围巾；舒适步行鞋（石板路多）、薄外套（山城和晚间偏凉）</span>
     </div>
     <div class="check-item">
       <span class="check-icon">📱</span>
@@ -967,7 +1122,7 @@
     </div>
     <div class="check-item">
       <span class="check-icon">🎒</span>
-      <span><strong>装备</strong>：舒适的步行鞋（石板路多）、一件薄外套（山城和晚间偏凉）、泳衣和毛巾</span>
+      <span><strong>随身</strong>：泳衣和毛巾（海边用）、小背包（City Walk 时解放双手）、充电宝</span>
     </div>
     <div class="check-item">
       <span class="check-icon">🎫</span>
@@ -982,8 +1137,9 @@
 
 <!-- ==================== FOOTER ==================== -->
 <div class="footer">
-  <p>用心策划 · 为爱出发</p>
-  <p style="margin-top:8px;">Made with <span class="heart">♥</span> for our Sicily journey · May 2026</p>
+  <p>See you in Sicily</p>
+  <div class="footer-line"></div>
+  <p>May 2026 · 我们西西里见</p>
 </div>
 
 </body>

@@ -1235,15 +1235,19 @@
     font-style: italic;
     line-height: 1.6;
   }
-  .outfit-toggle-hint { display: none !important; }
-  .outfit-fold { max-height: none !important; padding: 0 !important; overflow: visible !important; }
-  .day-detail-toggle { display: none !important; }
-  .day-content { max-height: none !important; overflow: visible !important; }
+  /* 桌面端：强制展开所有折叠，隐藏手机端控件 */
+  @media (min-width: 769px) {
+    .outfit-toggle-hint { display: none !important; }
+    .outfit-fold { max-height: none !important; padding: 0 !important; overflow: visible !important; }
+    .day-detail-toggle { display: none !important; }
+    .day-content { max-height: none !important; overflow: visible !important; }
+  }
 
+  /* 手机端天气卡细节 */
   @media (max-width: 768px) {
     .weather-main { border-right: none; border-bottom: 1px solid rgba(46,107,138,0.1); min-width: unset; width: 100%; }
     .weather-detail-item { flex: 1 1 45%; border-right: none; border-bottom: 1px solid rgba(46,107,138,0.06); }
-    .outfit-toggle-hint { display: block !important; }
+    .outfit-toggle-hint { display: inline !important; }
   }
 </style>
 </head>

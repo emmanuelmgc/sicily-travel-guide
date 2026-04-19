@@ -1032,11 +1032,12 @@
     font-style: italic;
     line-height: 1.6;
   }
-  .outfit-toggle-hint { display: none; }
+  .outfit-toggle-hint { display: none !important; }
 
   @media (max-width: 768px) {
     .weather-main { border-right: none; border-bottom: 1px solid rgba(46,107,138,0.1); min-width: unset; width: 100%; }
     .weather-detail-item { flex: 1 1 45%; border-right: none; border-bottom: 1px solid rgba(46,107,138,0.06); }
+    .outfit-toggle-hint { display: block !important; }
   }
 </style>
 </head>
@@ -1741,18 +1742,27 @@
   var notes = document.querySelectorAll('.outfit-note');
   for(var i=0;i<notes.length;i++){
     (function(note){
+      // 找到对应的 outfit-strip（在 outfit-note 前面）
       var strip = note.previousElementSibling;
-      if(!strip || !strip.classList.contains('outfit-strip')) return;
+      while(strip && !strip.classList.contains('outfit-strip')){
+        strip = strip.previousElementSibling;
+      }
+      if(!strip) return;
+      
+      // 创建展开按钮
       var hint = document.createElement('div');
       hint.className = 'outfit-toggle-hint';
       hint.textContent = '💡 查看穿搭建议';
-      strip.appendChild(hint);
+      
+      // 插入到 outfit-note 前面，而不是 outfit-strip 内部
+      note.parentNode.insertBefore(hint, note);
+      
+      // 点击展开/折叠
       hint.addEventListener('click',function(e){
         e.stopPropagation();
         if(note.classList.contains('open')){
           note.style.maxHeight = note.scrollHeight + 'px';
-          // 强制重绘后移除，确保过渡动画从当前高度到 0
-          note.offsetHeight;
+          note.offsetHeight; // 强制重绘
           note.style.maxHeight = '0';
           note.classList.remove('open');
           this.textContent = '💡 查看穿搭建议';
@@ -1760,7 +1770,6 @@
           note.classList.add('open');
           note.style.maxHeight = note.scrollHeight + 'px';
           this.textContent = '收起 ▾';
-          // 过渡结束后清除行内样式，让 CSS max-height: 600px 接管（适应窗口 resize）
           note.addEventListener('transitionend', function handler(){
             if(note.classList.contains('open')){
               note.style.maxHeight = '';

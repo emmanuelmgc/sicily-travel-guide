@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>7日包车之旅｜解锁地中海的阳光与浪漫</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap">
 
 <style>
@@ -729,6 +727,8 @@
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+      -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      mask-image: linear-gradient(to right, black 85%, transparent 100%);
     }
     .photo-grid::-webkit-scrollbar { display: none; }
     .photo-card {
@@ -745,15 +745,77 @@
 
     /* 行程分线卡片 */
     .split-routes { grid-template-columns: 1fr; gap: 12px; }
-    .route-card { padding: 18px 16px; }
+    .route-card { padding: 18px 16px; border-top: 3px solid #e8e0d4; }
+    .route-card.active { border-top-color: #2E6B8A; }
+    .route-card:not(.active) { border-top-color: #8B5E1A; }
 
     /* 行前清单 */
     .checklist { grid-template-columns: 1fr; gap: 10px; }
     .check-item { padding: 14px 16px; font-size: 13.5px; }
     .check-icon { width: 32px; height: 32px; font-size: 15px; }
 
-    /* 行程总表 */
-    .schedule-frame { margin: 0 -18px; border-radius: 8px; overflow-x: auto; }
+    /* 行程总表 - 手机端卡片模式 */
+    .schedule-frame { margin: 0 -18px; border-radius: 8px; overflow: visible; }
+    .schedule-table-wrap { overflow-x: visible; }
+    .schedule-table, .schedule-table thead, .schedule-table tbody, .schedule-table th, .schedule-table td, .schedule-table tr {
+      display: block;
+    }
+    .schedule-table thead { display: none; }
+    .schedule-table tbody { padding: 0; }
+    .schedule-table tbody tr {
+      background: rgba(255,255,255,0.75);
+      border-radius: 14px;
+      padding: 18px 16px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(196,148,58,0.1);
+      border-left: 3px solid rgba(196,148,58,0.25);
+      transition: background 0.2s;
+    }
+    .schedule-table tbody tr:hover {
+      transform: none;
+      background: rgba(255,255,255,0.85);
+    }
+    /* 婚礼日卡片：醒目红色左边框 */
+    .schedule-table tbody tr.wedding-row {
+      background: linear-gradient(135deg, rgba(232,80,60,0.06), rgba(255,242,232,0.8));
+      border-color: rgba(232,80,60,0.15);
+      border-left: 3px solid #e8503c;
+    }
+    /* 首尾日卡片微妙区分 */
+    .schedule-table tbody tr:first-child { border-left-color: rgba(196,148,58,0.4); }
+    .schedule-table tbody tr:last-child { border-left-color: rgba(196,148,58,0.4); }
+    .schedule-table tbody td {
+      padding: 0 0 10px 0;
+      border-radius: 0 !important;
+      vertical-align: top;
+      line-height: 1.65;
+    }
+    .schedule-table tbody td:first-child {
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(196,148,58,0.2);
+      margin-bottom: 10px;
+      white-space: normal;
+    }
+    .schedule-table tbody td:last-child { padding-bottom: 0; }
+    /* 字段标签 */
+    .schedule-table td::before {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(196,148,58,0.5);
+      margin-bottom: 4px;
+    }
+    .schedule-table td:nth-child(1)::before { content: 'DATE'; }
+    .schedule-table td:nth-child(2)::before { content: 'ROUTE'; }
+    .schedule-table td:nth-child(3)::before { content: 'STOPS'; }
+    .schedule-table td:nth-child(4)::before { content: 'HOTEL'; }
+    .schedule-table td:nth-child(5)::before { content: 'DRIVE'; }
+    .stop-tag { display: inline-block; margin-bottom: 3px; }
+    .drive-time { white-space: normal; font-size: 12px; color: rgba(140,130,110,0.5); line-height: 1.5; }
+    .drive-time .sdate { color: rgba(140,130,110,0.4); }
+    .drive-time .ab-label { opacity: 0.6; }
 
     /* City Walk 框 */
     .citywalk-box { padding: 14px 16px; }

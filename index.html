@@ -867,21 +867,49 @@
     h2 { font-size: 22px; }
     .story-text { font-size: 14px; line-height: 1.9; text-align: left; }
 
-    /* 穿搭区折叠 - 手机端 */
-    .outfit-strip { cursor: pointer; user-select: none; }
-    .outfit-tags { display: none; }
-    .outfit-strip.open .outfit-tags { display: flex; }
-    .outfit-strip::after {
-      content: '▸';
-      font-size: 12px;
-      color: rgba(46,107,138,0.4);
-      margin-left: auto;
-      padding-left: 10px;
-      transition: transform 0.2s;
+    /* 穿搭建议折叠 - 手机端 */
+    .outfit-strip { cursor: default; user-select: auto; }
+    .outfit-strip::after { display: none; }
+    .outfit-note {
+      max-height: 0;
+      padding: 0 22px;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #4A8DAB;
+      font-style: italic;
     }
-    .outfit-strip.open::after { content: '▾'; }
-    .outfit-strip + .outfit-note { display: none; }
-    .outfit-strip.open ~ .outfit-note { display: block; }
+    .outfit-note.open {
+      max-height: 200px;
+      padding: 10px 22px 14px;
+    }
+    /* 展开提示按钮 */
+    .outfit-tags-wrap {
+      position: relative;
+    }
+    .outfit-toggle-hint {
+      display: block;
+      text-align: center;
+      padding: 6px 0 2px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #2E6B8A;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      font-style: normal;
+      opacity: 0.7;
+    }
+    .outfit-toggle-hint::after {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: #2E6B8A;
+      vertical-align: middle;
+      margin-left: 6px;
+      opacity: 0.3;
+    }
 
     /* footer */
     .footer { padding: 36px 20px; }
@@ -1005,6 +1033,7 @@
     font-style: italic;
     line-height: 1.6;
   }
+  .outfit-toggle-hint { display: none; }
 
   @media (max-width: 768px) {
     .weather-main { border-right: none; border-bottom: 1px solid rgba(46,107,138,0.1); min-width: unset; width: 100%; }
@@ -1710,9 +1739,21 @@
 </body>
 <script>
 (function(){
-  var strips = document.querySelectorAll('.outfit-strip');
-  for(var i=0;i<strips.length;i++){
-    strips[i].addEventListener('click',function(){this.classList.toggle('open')});
+  var notes = document.querySelectorAll('.outfit-note');
+  for(var i=0;i<notes.length;i++){
+    (function(note){
+      var strip = note.previousElementSibling;
+      if(!strip || !strip.classList.contains('outfit-strip')) return;
+      var hint = document.createElement('div');
+      hint.className = 'outfit-toggle-hint';
+      hint.textContent = '💡 查看穿搭建议';
+      strip.appendChild(hint);
+      hint.addEventListener('click',function(e){
+        e.stopPropagation();
+        note.classList.toggle('open');
+        this.textContent = note.classList.contains('open') ? '收起 ▾' : '💡 查看穿搭建议';
+      });
+    })(notes[i]);
   }
 })();
 </script>

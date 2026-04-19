@@ -867,22 +867,18 @@
     h2 { font-size: 22px; }
     .story-text { font-size: 14px; line-height: 1.9; text-align: left; }
 
-    /* 穿搭建议折叠 - 手机端 */
+    /* 穿搭详情折叠 - 手机端 */
     .outfit-strip { cursor: default; user-select: auto; }
     .outfit-strip::after { display: none; }
-    .outfit-note {
+    .outfit-fold {
       max-height: 0;
       padding: 0 22px;
       overflow: hidden;
       transition: max-height 0.35s ease, padding 0.35s ease;
-      font-size: 12.5px;
-      line-height: 1.6;
-      color: #4A8DAB;
-      font-style: italic;
     }
-    .outfit-note.open {
+    .outfit-fold.open {
       max-height: 600px;
-      padding: 10px 22px 14px;
+      padding: 8px 22px 4px;
       transition: max-height 0.4s ease, padding 0.3s ease;
     }
     .outfit-toggle-hint {
@@ -1020,6 +1016,7 @@
     line-height: 1.6;
   }
   .outfit-toggle-hint { display: none !important; }
+  .outfit-fold { max-height: none !important; padding: 0 !important; overflow: visible !important; }
 
   @media (max-width: 768px) {
     .weather-main { border-right: none; border-bottom: 1px solid rgba(46,107,138,0.1); min-width: unset; width: 100%; }
@@ -1726,46 +1723,70 @@
 </body>
 <script>
 (function(){
+  // 先标记哪些 strip 是最后一个（直接在 note 前面的）
   var notes = document.querySelectorAll('.outfit-note');
-  for(var i=0;i<notes.length;i++){
-    (function(note){
-      // 找到对应的 outfit-strip
-      var strip = note.previousElementSibling;
-      while(strip && !strip.classList.contains('outfit-strip')){
-        strip = strip.previousElementSibling;
-      }
-      if(!strip) return;
-      
-      // 找到 outfit-label，在右侧追加提示
+  var lastStrips = {};
+  for(var j=0;j<notes.length;j++){
+    var prev = notes[j].previousElementSibling;
+    while(prev && !prev.classList.contains('outfit-strip')){
+      prev = prev.previousElementSibling;
+    }
+    if(prev) lastStrips[Array.prototype.indexOf.call(document.querySelectorAll('.outfit-strip'), prev)] = notes[j];
+  }
+  
+  var strips = document.querySelectorAll('.outfit-strip');
+  for(var i=0;i<strips.length;i++){
+    (function(strip, idx){
       var label = strip.querySelector('.outfit-label');
-      if(!label) return;
+      var tags = strip.querySelector('.outfit-tags');
+      if(!label || !tags) return;
       
+      // 找到对应的 note（只有最后一个 strip 才关联 note）
+      var note = lastStrips[idx] || null;
+      
+      // 创建折叠容器，包裹 tags + note
+      var foldWrap = document.createElement('div');
+      foldWrap.className = 'outfit-fold';
+      foldWrap.appendChild(tags);
+      
+      if(note){
+        foldWrap.appendChild(note);
+      }
+      
+      // 插入折叠容器到 strip 后面
+      var insertAfter = strip;
+      if(note && note.parentNode !== strip.parentNode){
+        // note 不在 strip 同级了（已被前面的 strip 处理），跳过
+      }
+      strip.parentNode.insertBefore(foldWrap, strip.nextSibling);
+      
+      // 在 label 里加提示
       var hint = document.createElement('span');
       hint.className = 'outfit-toggle-hint';
-      hint.textContent = '💡 点击查看穿搭建议';
+      hint.textContent = '💡 点击查看详情';
       label.appendChild(hint);
       
       hint.addEventListener('click',function(e){
         e.stopPropagation();
-        if(note.classList.contains('open')){
-          note.style.maxHeight = note.scrollHeight + 'px';
-          note.offsetHeight;
-          note.style.maxHeight = '0';
-          note.classList.remove('open');
-          this.textContent = '💡 点击查看穿搭建议';
+        if(foldWrap.classList.contains('open')){
+          foldWrap.style.maxHeight = foldWrap.scrollHeight + 'px';
+          foldWrap.offsetHeight;
+          foldWrap.style.maxHeight = '0';
+          foldWrap.classList.remove('open');
+          this.textContent = '💡 点击查看详情';
         } else {
-          note.classList.add('open');
-          note.style.maxHeight = note.scrollHeight + 'px';
+          foldWrap.classList.add('open');
+          foldWrap.style.maxHeight = foldWrap.scrollHeight + 'px';
           this.textContent = '收起';
-          note.addEventListener('transitionend', function handler(){
-            if(note.classList.contains('open')){
-              note.style.maxHeight = '';
+          foldWrap.addEventListener('transitionend', function handler(){
+            if(foldWrap.classList.contains('open')){
+              foldWrap.style.maxHeight = '';
             }
-            note.removeEventListener('transitionend', handler);
+            foldWrap.removeEventListener('transitionend', handler);
           });
         }
       });
-    })(notes[i]);
+    })(strips[i], i);
   }
 })();
 </script>

@@ -886,28 +886,15 @@
       transition: max-height 0.4s ease, padding 0.3s ease;
     }
     .outfit-toggle-hint {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 8px 0 4px;
-      font-size: 11px;
-      font-weight: 500;
-      color: #2E6B8A;
-      letter-spacing: 0.5px;
+      display: inline;
+      font-size: 10px;
+      font-weight: 400;
+      color: #4A8DAB;
+      letter-spacing: 0.2px;
       cursor: pointer;
       font-style: normal;
-      border-top: 1px dashed rgba(46,107,138,0.12);
-      margin-top: 6px;
-    }
-    .outfit-toggle-hint::after {
-      content: '';
-      display: inline-block;
-      width: 40px;
-      height: 1px;
-      background: #2E6B8A;
-      vertical-align: middle;
       margin-left: 6px;
-      opacity: 0.3;
+      opacity: 0.65;
     }
 
     /* footer */
@@ -1742,34 +1729,34 @@
   var notes = document.querySelectorAll('.outfit-note');
   for(var i=0;i<notes.length;i++){
     (function(note){
-      // 找到对应的 outfit-strip（在 outfit-note 前面）
+      // 找到对应的 outfit-strip
       var strip = note.previousElementSibling;
       while(strip && !strip.classList.contains('outfit-strip')){
         strip = strip.previousElementSibling;
       }
       if(!strip) return;
       
-      // 创建展开按钮
-      var hint = document.createElement('div');
+      // 找到 outfit-label，在右侧追加提示
+      var label = strip.querySelector('.outfit-label');
+      if(!label) return;
+      
+      var hint = document.createElement('span');
       hint.className = 'outfit-toggle-hint';
-      hint.textContent = '💡 查看穿搭建议';
+      hint.textContent = '💡 点击查看穿搭建议';
+      label.appendChild(hint);
       
-      // 插入到 outfit-note 前面，而不是 outfit-strip 内部
-      note.parentNode.insertBefore(hint, note);
-      
-      // 点击展开/折叠
       hint.addEventListener('click',function(e){
         e.stopPropagation();
         if(note.classList.contains('open')){
           note.style.maxHeight = note.scrollHeight + 'px';
-          note.offsetHeight; // 强制重绘
+          note.offsetHeight;
           note.style.maxHeight = '0';
           note.classList.remove('open');
-          this.textContent = '💡 查看穿搭建议';
+          this.textContent = '💡 点击查看穿搭建议';
         } else {
           note.classList.add('open');
           note.style.maxHeight = note.scrollHeight + 'px';
-          this.textContent = '收起 ▾';
+          this.textContent = '收起';
           note.addEventListener('transitionend', function handler(){
             if(note.classList.contains('open')){
               note.style.maxHeight = '';

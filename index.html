@@ -705,8 +705,9 @@
   @media (max-width: 768px) {
 
     /* 整体容器 */
-    .section, .section-intro { padding: 36px 18px; }
-    .cover-content { padding: 28px 20px; }
+    .section { padding: 36px 18px; }
+    .section-intro { padding: 36px 18px; margin-top: -120px; }
+    .cover-content { padding: 28px 20px; padding-top: 15vh; }
     .cover-scroll { display: none; }
 
     /* 封面 */
@@ -739,6 +740,9 @@
 
     /* Day Section */
     .day-number { font-size: 38px; }
+    .day-header { position: relative; padding-left: 58px; }
+    .day-header .day-number { position: absolute; left: 0; top: -2px; }
+    .story-text::first-letter { display: none; }
     .day-meta h3 { font-size: 15px; }
     .day-content p { font-size: 14px; line-height: 1.8; }
     .day-section { margin-bottom: 40px; }
@@ -821,12 +825,25 @@
     .citywalk-box { padding: 14px 16px; }
     .citywalk-link {
       display: block;
-      text-align: center;
+      text-align: left;
       margin-top: 12px;
-      padding: 13px 0;
+      padding: 10px 0;
       width: 100%;
-      border-radius: 10px;
+      border-radius: 0;
       font-size: 13px;
+      background: none;
+      color: var(--text-light);
+      border-bottom: 1px solid rgba(196,148,58,0.2);
+      box-shadow: none;
+    }
+    .citywalk-link:hover {
+      transform: none;
+      box-shadow: none;
+      color: var(--gold-dark);
+    }
+    .citywalk-link::after {
+      content: ' →';
+      font-size: 14px;
     }
 
     /* 美食提示框 */
@@ -848,7 +865,23 @@
     /* 分节标题 */
     .section-label { font-size: 10px; }
     h2 { font-size: 22px; }
-    .story-text { font-size: 14px; line-height: 1.9; }
+    .story-text { font-size: 14px; line-height: 1.9; text-align: left; }
+
+    /* 穿搭区折叠 - 手机端 */
+    .outfit-strip { cursor: pointer; user-select: none; }
+    .outfit-tags { display: none; }
+    .outfit-strip.open .outfit-tags { display: flex; }
+    .outfit-strip::after {
+      content: '▸';
+      font-size: 12px;
+      color: rgba(46,107,138,0.4);
+      margin-left: auto;
+      padding-left: 10px;
+      transition: transform 0.2s;
+    }
+    .outfit-strip.open::after { content: '▾'; }
+    .outfit-strip + .outfit-note { display: none; }
+    .outfit-strip.open ~ .outfit-note { display: block; }
 
     /* footer */
     .footer { padding: 36px 20px; }
@@ -1675,5 +1708,13 @@
 </div>
 
 </body>
+<script>
+(function(){
+  var strips = document.querySelectorAll('.outfit-strip');
+  for(var i=0;i<strips.length;i++){
+    strips[i].addEventListener('click',function(){this.classList.toggle('open')});
+  }
+})();
+</script>
 </html>
 

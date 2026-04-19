@@ -701,22 +701,206 @@
     margin: 16px auto;
   }
 
+  /* ===== DAY REMINDER ===== */
+  .day-reminder {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #FFF9F0, #FEF6EC);
+    border: 1px solid rgba(196,148,58,0.15);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--text-body);
+    line-height: 1.6;
+  }
+  .day-reminder-icon {
+    flex-shrink: 0;
+    font-size: 15px;
+    margin-top: 1px;
+  }
+  .day-reminder-text strong {
+    color: var(--gold-dark);
+  }
+  .day-reminder-text .reminder-item {
+    display: inline;
+  }
+  .day-reminder-text .reminder-item::after {
+    content: ' · ';
+    color: rgba(196,148,58,0.3);
+  }
+  .day-reminder-text .reminder-item:last-child::after {
+    content: '';
+  }
+
+  /* ===== OVERVIEW CARDS (Desktop) ===== */
+  .overview-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 24px 0 32px;
+  }
+  .overview-card {
+    background: rgba(255,255,255,0.85);
+    border: 1px solid rgba(196,148,58,0.12);
+    border-radius: 12px;
+    padding: 18px 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .overview-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(196,148,58,0.1);
+    transform: translateY(-3px);
+  }
+  .overview-card .oc-day {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .overview-card .oc-date {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .overview-card .oc-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  .overview-card .oc-route {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  .overview-card.wedding-card {
+    background: linear-gradient(135deg, rgba(255,245,240,0.9), rgba(255,232,224,0.9));
+    border-color: rgba(184,80,60,0.15);
+  }
+  .overview-card.wedding-card .oc-day { color: var(--accent); }
+  .overview-card.wedding-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 24px rgba(184,80,60,0.1);
+  }
+
+  @media (max-width: 768px) {
+    .overview-cards { display: none; }
+  }
+
+  /* ===== STICKY DAY NAV ===== */
+  .day-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(253,248,240,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(196,148,58,0.15);
+    padding: 8px 0;
+    display: none;
+    justify-content: center;
+    gap: 4px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+  }
+  .day-nav.visible { display: flex; }
+  .day-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+    min-width: 44px;
+  }
+  .day-nav-btn:hover, .day-nav-btn:focus {
+    background: rgba(196,148,58,0.1);
+  }
+  .day-nav-btn .nav-day {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--gold-dark);
+    line-height: 1;
+  }
+  .day-nav-btn .nav-date {
+    font-size: 9px;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+  .day-nav-btn.wedding .nav-day { color: var(--accent); }
+  .day-nav-btn.active {
+    background: var(--gold);
+  }
+  .day-nav-btn.active .nav-day { color: #fff; }
+  .day-nav-btn.active .nav-date { color: rgba(255,255,255,0.7); }
+
+  /* ===== BACK TO TOP ===== */
+  .back-to-top {
+    position: fixed;
+    bottom: 72px;
+    right: 16px;
+    z-index: 101;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,148,58,0.2);
+    background: rgba(253,248,240,0.95);
+    backdrop-filter: blur(8px);
+    color: var(--gold-dark);
+    font-size: 18px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    line-height: 1;
+  }
+  .back-to-top.visible { display: flex; }
+  .back-to-top:hover {
+    background: var(--gold);
+    color: #fff;
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(196,148,58,0.2);
+  }
+
   /* ===== RESPONSIVE - MOBILE FIRST ===== */
   @media (max-width: 768px) {
 
     /* 整体容器 */
     .section { padding: 36px 18px; }
     .section-intro { padding: 36px 18px; margin-top: -120px; }
-    .cover-content { padding: 28px 20px; padding-top: 15vh; }
+    .cover-content { padding: 28px 20px; padding-top: 10vh; }
     .cover-scroll { display: none; }
 
     /* 封面 */
-    .cover { min-height: 100svh; }
-    .cover-eyebrow { font-size: 10px; letter-spacing: 3px; margin-bottom: 16px; }
-    .cover h1 { font-size: 30px; line-height: 1.25; margin-bottom: 12px; }
-    .cover h1 span { font-size: 12px; margin-top: 6px; letter-spacing: 2px; }
-    .cover-subtitle { font-size: 13px; letter-spacing: 1px; }
-    .cover-date { font-size: 11px; letter-spacing: 4px; margin-top: 20px; }
+    .cover { min-height: 100svh; height: 70svh; }
+    .cover::after { height: 120px; }
+    .cover-eyebrow { font-size: 10px; letter-spacing: 3px; margin-bottom: 12px; }
+    .cover h1 { font-size: 28px; line-height: 1.2; margin-bottom: 8px; }
+    .cover h1 span { font-size: 11px; margin-top: 4px; letter-spacing: 2px; }
+    .cover-subtitle { font-size: 12px; letter-spacing: 1px; }
+    .cover-date { font-size: 11px; letter-spacing: 4px; margin-top: 14px; padding: 8px 20px; }
 
     /* Photo Grid 横向滑动 */
     .photo-grid {
@@ -866,6 +1050,8 @@
     .section-label { font-size: 10px; }
     h2 { font-size: 22px; }
     .story-text { font-size: 14px; line-height: 1.9; text-align: left; }
+    .section-intro { padding: 28px 18px; margin-top: -80px; }
+    .section-intro .story-text { font-size: 13px; line-height: 1.8; }
 
     /* 穿搭详情折叠 - 手机端 */
     .outfit-strip { cursor: default; user-select: auto; }
@@ -891,6 +1077,40 @@
       font-style: normal;
       margin-left: 6px;
       opacity: 0.65;
+    }
+
+    /* 每日详情折叠 - 手机端 */
+    .day-detail-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(196,148,58,0.1);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--text-light);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .day-detail-toggle::after {
+      content: '▸';
+      font-size: 12px;
+      color: var(--gold);
+      transition: transform 0.2s;
+    }
+    .day-detail-toggle.open::after {
+      content: '▾';
+    }
+    .day-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .day-content.open {
+      max-height: 3000px;
     }
 
     /* footer */
@@ -1017,6 +1237,8 @@
   }
   .outfit-toggle-hint { display: none !important; }
   .outfit-fold { max-height: none !important; padding: 0 !important; overflow: visible !important; }
+  .day-detail-toggle { display: none !important; }
+  .day-content { max-height: none !important; overflow: visible !important; }
 
   @media (max-width: 768px) {
     .weather-main { border-right: none; border-bottom: 1px solid rgba(46,107,138,0.1); min-width: unset; width: 100%; }
@@ -1040,7 +1262,6 @@
 
 <!-- ==================== INTRO STORY ==================== -->
 <div class="section-intro">
-  <div class="section-label">Chapter One</div>
   <h2>先种草：迷人的西西里北部与东南线</h2>
   <p class="story-text">
 五月的西西里岛，正值春末夏初，山城与海岸被金色阳光点亮。传说中诺曼国王的宫殿如今依旧闪耀着马赛克的光芒——蒙雷阿莱大教堂拥有超过6000平方米的华丽马赛克装饰。巴勒莫老市集的叫卖声、香料味与甜品交织出阿拉伯‑诺曼文化的烟火气，Ballarò市场作为城市最古老而热闹的市场，以多彩的农产品和海鲜闻名。驱车向西，特拉帕尼盐田的风车与夕阳在平静的盐池上投下长长的影子。山顶的塞杰斯塔神庙静静矗立，希腊柱廊在风中仿佛诉说着古代的故事。跨过北部海岸来到卡塔尼亚，黑色的熔岩石雕塑着巴洛克建筑，象征城市的黑色大象喷泉由巴萨尔特石打造并饰有埃及式方尖碑。最后的东南线路，在诺托和莫迪卡体验1693年后重建的巴洛克城镇和独特的传统巧克力。在一周的行程中，你将看到地中海光线在石墙上的变化、品尝古老阿拉伯传来的granita、闻到橙花的香气，也将在火山黑土地上留下足迹。
@@ -1049,7 +1270,6 @@
 
 <!-- ==================== PHOTO GRID ==================== -->
 <div class="section">
-  <div class="section-label">Must-See Moments</div>
   <h2>值得期待的六个瞬间</h2>
   <div class="photo-grid">
     <div class="photo-card">
@@ -1109,9 +1329,56 @@
   </div>
 </div>
 
+<!-- ==================== OVERVIEW CARDS ==================== -->
+<div class="section" style="padding-bottom: 0;">
+  <div class="overview-cards">
+    <a href="#day-1" class="overview-card">
+      <div class="oc-day">D1</div>
+      <div class="oc-date">5月2日 · 周六</div>
+      <div class="oc-title">盐与风的开场白</div>
+      <div class="oc-route">巴勒莫机场 → 特拉帕尼 → 埃里切 → 盐田</div>
+    </a>
+    <a href="#day-2" class="overview-card">
+      <div class="oc-day">D2</div>
+      <div class="oc-date">5月3日 · 周日</div>
+      <div class="oc-title">希腊神殿与金色马赛克</div>
+      <div class="oc-route">特拉帕尼 → 塞杰斯塔 → 蒙雷阿莱 → 巴勒莫</div>
+    </a>
+    <a href="#day-3" class="overview-card">
+      <div class="oc-day">D3</div>
+      <div class="oc-date">5月4日 · 周一</div>
+      <div class="oc-title">市场、王宫与北海岸</div>
+      <div class="oc-route">巴勒莫 → 切法卢</div>
+    </a>
+    <a href="#day-4" class="overview-card">
+      <div class="oc-day">D4</div>
+      <div class="oc-date">5月5日 · 周二</div>
+      <div class="oc-title">海岸慢生活</div>
+      <div class="oc-route">切法卢 → 卡塔尼亚</div>
+    </a>
+    <a href="#day-5" class="overview-card wedding-card">
+      <div class="oc-day">D5 💍</div>
+      <div class="oc-date">5月6日 · 周三</div>
+      <div class="oc-title">婚礼日 · 城市休闲</div>
+      <div class="oc-route">卡塔尼亚（全天婚礼）</div>
+    </a>
+    <a href="#day-6" class="overview-card">
+      <div class="oc-day">D6</div>
+      <div class="oc-date">5月7日 · 周四</div>
+      <div class="oc-title">火山 vs. 海岛</div>
+      <div class="oc-route">卡塔尼亚 → A线 或 B线</div>
+    </a>
+    <a href="#day-7" class="overview-card">
+      <div class="oc-day">D7</div>
+      <div class="oc-date">5月8日 · 周五</div>
+      <div class="oc-title">巴洛克与巧克力</div>
+      <div class="oc-route">卡塔尼亚 → 诺托 → 莫迪卡 → 卡塔尼亚</div>
+    </a>
+  </div>
+</div>
+
 <!-- ==================== SCHEDULE TABLE ==================== -->
 <div class="section" style="padding-top: 0;">
-  <div class="section-label">Overview</div>
   <h2>行程总表</h2>
   <div class="schedule-visual">
     <div class="schedule-frame">
@@ -1255,16 +1522,25 @@
 
 <!-- ==================== DAY-BY-DAY ==================== -->
 <div class="section">
-  <div class="section-label">Chapter Two</div>
   <h2>逐日详解</h2>
 
   <!-- D1 -->
-  <div class="day-section">
+  <div class="day-section" id="day-1">
     <div class="day-header">
       <div class="day-number">D1</div>
       <div class="day-meta">
         <h3>5/2 — 盐与风的开场白</h3>
         <div class="day-route">巴勒莫机场 → 特拉帕尼 → 埃里切 → 盐田</div>
+      </div>
+    </div>
+
+    <div class="day-reminder">
+      <span class="day-reminder-icon">📋</span>
+      <div class="day-reminder-text">
+        <strong>今日要点</strong>
+        <span class="reminder-item">山顶埃里切比山下低 5°C</span>
+        <span class="reminder-item">薄外套必备</span>
+        <span class="reminder-item">盐田日落 20:23</span>
       </div>
     </div>
 
@@ -1319,12 +1595,22 @@
   </div>
 
   <!-- D2 -->
-  <div class="day-section">
+  <div class="day-section" id="day-2">
     <div class="day-header">
       <div class="day-number">D2</div>
       <div class="day-meta">
         <h3>5/3 — 希腊神殿与金色马赛克</h3>
         <div class="day-route">特拉帕尼 → 塞杰斯塔 → 蒙雷阿莱 → 巴勒莫</div>
+      </div>
+    </div>
+
+    <div class="day-reminder">
+      <span class="day-reminder-icon">📋</span>
+      <div class="day-reminder-text">
+        <strong>今日要点</strong>
+        <span class="reminder-item">塞杰斯塔户外无遮挡，帽子防晒</span>
+        <span class="reminder-item">蒙雷阿莱教堂需遮肩遮膝</span>
+        <span class="reminder-item">建议提前在线购票 €16</span>
       </div>
     </div>
 
@@ -1374,12 +1660,22 @@
   </div>
 
   <!-- D3 -->
-  <div class="day-section">
+  <div class="day-section" id="day-3">
     <div class="day-header">
       <div class="day-number">D3</div>
       <div class="day-meta">
         <h3>5/4 — 市场、王宫与北海岸</h3>
         <div class="day-route">巴勒莫 → 切法卢</div>
+      </div>
+    </div>
+
+    <div class="day-reminder">
+      <span class="day-reminder-icon">📋</span>
+      <div class="day-reminder-text">
+        <strong>今日要点</strong>
+        <span class="reminder-item">35% 降雨概率，带折叠伞</span>
+        <span class="reminder-item">诺曼王宫礼拜堂需遮肩</span>
+        <span class="reminder-item">比基尼放包里备用</span>
       </div>
     </div>
 
@@ -1434,12 +1730,22 @@
   </div>
 
   <!-- D4 -->
-  <div class="day-section">
+  <div class="day-section" id="day-4">
     <div class="day-header">
       <div class="day-number">D4</div>
       <div class="day-meta">
         <h3>5/5 — 海岸慢生活：切法卢到卡塔尼亚</h3>
         <div class="day-route">切法卢 → 卡塔尼亚</div>
+      </div>
+    </div>
+
+    <div class="day-reminder">
+      <span class="day-reminder-icon">📋</span>
+      <div class="day-reminder-text">
+        <strong>今日要点</strong>
+        <span class="reminder-item">全程最晴朗一天，防晒优先</span>
+        <span class="reminder-item">上午切法卢海滨 → 下午驱车卡塔尼亚</span>
+        <span class="reminder-item">夜间卡塔尼亚 19°C，带外套</span>
       </div>
     </div>
 
@@ -1493,12 +1799,22 @@
   </div>
 
   <!-- D5 WEDDING -->
-  <div class="day-section">
+  <div class="day-section" id="day-5">
     <div class="day-header">
       <div class="day-number" style="color: var(--accent);">D5</div>
       <div class="day-meta">
         <h3>5/6 — 💍 婚礼日 · 城市休闲</h3>
         <div class="day-route">卡塔尼亚（全天婚礼）</div>
+      </div>
+    </div>
+
+    <div class="day-reminder" style="background: linear-gradient(135deg, #FFF5F0, #FEF0E8); border-color: rgba(184,80,60,0.15);">
+      <span class="day-reminder-icon">💍</span>
+      <div class="day-reminder-text">
+        <strong style="color: var(--accent);">婚礼日</strong>
+        <span class="reminder-item">全天晴天，无降雨</span>
+        <span class="reminder-item">地中海老钱风穿搭</span>
+        <span class="reminder-item">石板路穿平跟</span>
       </div>
     </div>
 
@@ -1542,12 +1858,22 @@
   </div>
 
   <!-- D6 SPLIT -->
-  <div class="day-section">
+  <div class="day-section" id="day-6">
     <div class="day-header">
       <div class="day-number">D6</div>
       <div class="day-meta">
         <h3>5/7 — 你是哪种旅行者？火山 vs. 海岛</h3>
         <div class="day-route">卡塔尼亚 → A线 或 B线</div>
+      </div>
+    </div>
+
+    <div class="day-reminder">
+      <span class="day-reminder-icon">📋</span>
+      <div class="day-reminder-text">
+        <strong>今日要点</strong>
+        <span class="reminder-item">B线：登山鞋 + 冲锋衣必须（山顶 8°C）</span>
+        <span class="reminder-item">A线：防晒 + 凉鞋 + 泳衣备用</span>
+        <span class="reminder-item">提前确认分线选择</span>
       </div>
     </div>
 
@@ -1611,12 +1937,22 @@
   </div>
 
   <!-- D7 -->
-  <div class="day-section">
+  <div class="day-section" id="day-7">
     <div class="day-header">
       <div class="day-number">D7</div>
       <div class="day-meta">
         <h3>5/8 — 巴洛克与巧克力的甜蜜收官</h3>
         <div class="day-route">卡塔尼亚 → 诺托 → 莫迪卡 → 卡塔尼亚</div>
+      </div>
+    </div>
+
+    <div class="day-reminder">
+      <span class="day-reminder-icon">📋</span>
+      <div class="day-reminder-text">
+        <strong>今日要点</strong>
+        <span class="reminder-item">石板台阶多，穿低跟鞋</span>
+        <span class="reminder-item">内陆无海风更热，带足水</span>
+        <span class="reminder-item">预留包内空间装伴手礼</span>
       </div>
     </div>
 
@@ -1720,6 +2056,18 @@
   <p>May 2026 · 我们西西里见</p>
 </div>
 
+<!-- ==================== STICKY NAV ==================== -->
+<nav class="day-nav" id="dayNav">
+  <a href="#day-1" class="day-nav-btn" data-day="1"><span class="nav-day">D1</span><span class="nav-date">5/2</span></a>
+  <a href="#day-2" class="day-nav-btn" data-day="2"><span class="nav-day">D2</span><span class="nav-date">5/3</span></a>
+  <a href="#day-3" class="day-nav-btn" data-day="3"><span class="nav-day">D3</span><span class="nav-date">5/4</span></a>
+  <a href="#day-4" class="day-nav-btn" data-day="4"><span class="nav-day">D4</span><span class="nav-date">5/5</span></a>
+  <a href="#day-5" class="day-nav-btn wedding" data-day="5"><span class="nav-day">D5</span><span class="nav-date">💍</span></a>
+  <a href="#day-6" class="day-nav-btn" data-day="6"><span class="nav-day">D6</span><span class="nav-date">5/7</span></a>
+  <a href="#day-7" class="day-nav-btn" data-day="7"><span class="nav-day">D7</span><span class="nav-date">5/8</span></a>
+</nav>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 </body>
 <script>
 (function(){
@@ -1787,6 +2135,119 @@
         }
       });
     })(strips[i], i);
+  }
+})();
+
+  // ===== DAY NAV + BACK TO TOP LOGIC =====
+(function(){
+  var nav = document.getElementById('dayNav');
+  var backBtn = document.getElementById('backToTop');
+  var daySections = document.querySelectorAll('.day-section');
+  var navBtns = nav.querySelectorAll('.day-nav-btn');
+  var dayStart = daySections[0] ? daySections[0].offsetTop - 200 : 600;
+  
+  // 滚动时显示/隐藏导航、高亮当前day、显示返回顶部
+  function onScroll(){
+    var y = window.scrollY || window.pageYOffset;
+    if(y > dayStart){
+      nav.classList.add('visible');
+    } else {
+      nav.classList.remove('visible');
+    }
+    if(y > window.innerHeight * 1.5){
+      backBtn.classList.add('visible');
+    } else {
+      backBtn.classList.remove('visible');
+    }
+    var activeDay = null;
+    for(var i = daySections.length - 1; i >= 0; i--){
+      if(daySections[i].getBoundingClientRect().top < window.innerHeight * 0.4){
+        activeDay = i + 1;
+        break;
+      }
+    }
+    for(var j = 0; j < navBtns.length; j++){
+      var d = parseInt(navBtns[j].getAttribute('data-day'));
+      if(d === activeDay){
+        navBtns[j].classList.add('active');
+      } else {
+        navBtns[j].classList.remove('active');
+      }
+    }
+  }
+  
+  var scrollTimer;
+  window.addEventListener('scroll', function(){
+    if(scrollTimer) return;
+    scrollTimer = setTimeout(function(){
+      onScroll();
+      scrollTimer = null;
+    }, 50);
+  }, {passive: true});
+  onScroll();
+  
+  for(var k = 0; k < navBtns.length; k++){
+    navBtns[k].addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if(target){
+        var offset = target.getBoundingClientRect().top + window.pageYOffset - 60;
+        window.scrollTo({top: offset, behavior: 'smooth'});
+      }
+    });
+  }
+})();
+
+// ===== DAY CONTENT TOGGLE (MOBILE) =====
+(function(){
+  var daySections = document.querySelectorAll('.day-section');
+  for(var i = 0; i < daySections.length; i++){
+    (function(section){
+      var content = section.querySelector('.day-content');
+      if(!content) return;
+      
+      var toggle = document.createElement('div');
+      toggle.className = 'day-detail-toggle';
+      toggle.textContent = '📝 查看详细行程与美食推荐';
+      
+      // 插入到 weather-card 或 day-reminder 之后、day-content 之前
+      var weatherCard = section.querySelector('.weather-card');
+      var reminder = section.querySelector('.day-reminder');
+      var insertBefore = content;
+      
+      // D6 有 split-routes 在 day-content 外面，也要处理
+      section.insertBefore(toggle, insertBefore);
+      
+      toggle.addEventListener('click', function(){
+        if(content.classList.contains('open')){
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.offsetHeight;
+          content.style.maxHeight = '0';
+          content.classList.remove('open');
+          this.classList.remove('open');
+          this.textContent = '📝 查看详细行程与美食推荐';
+        } else {
+          content.classList.add('open');
+          content.style.maxHeight = content.scrollHeight + 'px';
+          this.classList.add('open');
+          this.textContent = '📝 收起详细行程';
+          // 处理 D6 的 split-routes（在 day-content 外面）
+          var splitRoutes = section.querySelector('.split-routes');
+          if(splitRoutes && !content.contains(splitRoutes)){
+            if(!this._splitHandled){
+              section.insertBefore(toggle, splitRoutes);
+              this._splitHandled = true;
+            }
+          }
+          content.addEventListener('transitionend', function handler(){
+            if(content.classList.contains('open')){
+              content.style.maxHeight = '';
+            }
+            content.removeEventListener('transitionend', handler);
+          });
+        }
+      });
+    })(daySections[i]);
   }
 })();
 </script>

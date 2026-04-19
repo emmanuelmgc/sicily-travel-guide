@@ -1054,18 +1054,18 @@
     .section-intro .story-text { font-size: 13px; line-height: 1.8; }
 
     /* 穿搭详情折叠 - 手机端 */
-    .outfit-strip { cursor: default; user-select: auto; }
+    .outfit-strip { cursor: pointer; user-select: none; }
     .outfit-strip::after { display: none; }
     .outfit-fold {
-      max-height: 0;
-      padding: 0 22px;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s ease;
+      display: none;
     }
     .outfit-fold.open {
-      max-height: 600px;
-      padding: 8px 22px 4px;
-      transition: max-height 0.4s ease, padding 0.3s ease;
+      display: block;
+      animation: outfitFadeIn 0.3s ease;
+    }
+    @keyframes outfitFadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .outfit-toggle-hint {
       display: inline;
@@ -1073,7 +1073,6 @@
       font-weight: 400;
       color: #4A8DAB;
       letter-spacing: 0.2px;
-      cursor: pointer;
       font-style: normal;
       margin-left: 6px;
       opacity: 0.65;
@@ -1241,7 +1240,7 @@
   /* 桌面端：强制展开所有折叠，隐藏手机端控件 */
   @media (min-width: 769px) {
     .outfit-toggle-hint { display: none !important; }
-    .outfit-fold { max-height: none !important; padding: 0 !important; overflow: visible !important; }
+    .outfit-fold { display: block !important; }
     .day-detail-toggle { display: none !important; }
     .day-content { display: block !important; }
   }
@@ -1250,7 +1249,6 @@
   @media (max-width: 768px) {
     .weather-main { border-right: none; border-bottom: 1px solid rgba(46,107,138,0.1); min-width: unset; width: 100%; }
     .weather-detail-item { flex: 1 1 45%; border-right: none; border-bottom: 1px solid rgba(46,107,138,0.06); }
-    .outfit-toggle-hint { display: inline !important; }
   }
 </style>
 </head>
@@ -2121,24 +2119,11 @@
       hint.textContent = '💡 点击查看详情';
       label.appendChild(hint);
       
-      hint.addEventListener('click',function(e){
-        e.stopPropagation();
-        if(foldWrap.classList.contains('open')){
-          foldWrap.style.maxHeight = foldWrap.scrollHeight + 'px';
-          foldWrap.offsetHeight;
-          foldWrap.style.maxHeight = '0';
-          foldWrap.classList.remove('open');
-          this.textContent = '💡 点击查看详情';
-        } else {
-          foldWrap.classList.add('open');
-          foldWrap.style.maxHeight = foldWrap.scrollHeight + 'px';
-          this.textContent = '收起';
-          foldWrap.addEventListener('transitionend', function handler(){
-            if(foldWrap.classList.contains('open')){
-              foldWrap.style.maxHeight = '';
-            }
-            foldWrap.removeEventListener('transitionend', handler);
-          });
+      strip.addEventListener('click',function(){
+        var isOpen = foldWrap.classList.toggle('open');
+        hint.textContent = isOpen ? '收起' : '💡 点击查看详情';
+        if(isOpen) {
+          foldWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       });
     })(strips[i], i);

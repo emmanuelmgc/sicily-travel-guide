@@ -1105,12 +1105,15 @@
       content: '▾';
     }
     .day-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
+      display: none;
     }
     .day-content.open {
-      overflow: visible;
+      display: block;
+      animation: dayFadeIn 0.3s ease;
+    }
+    @keyframes dayFadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* footer */
@@ -1240,7 +1243,7 @@
     .outfit-toggle-hint { display: none !important; }
     .outfit-fold { max-height: none !important; padding: 0 !important; overflow: visible !important; }
     .day-detail-toggle { display: none !important; }
-    .day-content { max-height: none !important; overflow: visible !important; }
+    .day-content { display: block !important; }
   }
 
   /* 手机端天气卡细节 */
@@ -2213,55 +2216,14 @@
       var toggle = document.createElement('div');
       toggle.className = 'day-detail-toggle';
       toggle.textContent = '📝 查看详细行程与美食推荐';
-      
-      // 插入到 day-content 之前
-      var insertBefore = content;
-      section.insertBefore(toggle, insertBefore);
-      
-      // 标记是否正在动画中，防止快速连击
-      var animating = false;
+      section.insertBefore(toggle, content);
       
       toggle.addEventListener('click', function(){
-        if(animating) return;
-        
-        if(content.classList.contains('open')){
-          // 关闭：先锁定当前高度，再过渡到 0
-          animating = true;
-          var h = content.scrollHeight;
-          content.style.transition = 'none';
-          content.style.maxHeight = h + 'px';
-          content.offsetHeight; // 强制重绘
-          content.style.transition = '';
-          content.style.maxHeight = '0';
-          content.classList.remove('open');
-          this.classList.remove('open');
-          this.textContent = '📝 查看详细行程与美食推荐';
-          setTimeout(function(){ animating = false; }, 450);
-        } else {
-          // 展开：从 0 过渡到 scrollHeight，完成后切到 auto
-          animating = true;
-          content.classList.add('open');
-          this.classList.add('open');
-          this.textContent = '📝 收起详细行程';
-          
-          // 临时去掉 transition 读 scrollHeight，再恢复
-          content.style.transition = 'none';
-          content.style.maxHeight = 'none';
-          var h = content.scrollHeight;
-          content.style.maxHeight = '0';
-          content.offsetHeight; // 强制重绘
-          content.style.transition = '';
-          content.style.maxHeight = h + 'px';
-          
-          function onEnd(e){
-            if(e.propertyName !== 'max-height') return;
-            if(content.classList.contains('open')){
-              content.style.maxHeight = 'none';
-            }
-            content.removeEventListener('transitionend', onEnd);
-            animating = false;
-          }
-          content.addEventListener('transitionend', onEnd);
+        var isOpen = content.classList.toggle('open');
+        this.classList.toggle('open', isOpen);
+        this.textContent = isOpen ? '📝 收起详细行程' : '📝 查看详细行程与美食推荐';
+        if(isOpen) {
+          content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       });
     })(daySections[i]);

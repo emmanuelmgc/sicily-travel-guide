@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>7日包车之旅｜解锁地中海的阳光与浪漫</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -703,17 +703,93 @@
     margin: 16px auto;
   }
 
-  /* ===== RESPONSIVE ===== */
+  /* ===== RESPONSIVE - MOBILE FIRST ===== */
   @media (max-width: 768px) {
-    .photo-grid { grid-template-columns: 1fr; }
-    .split-routes { grid-template-columns: 1fr; }
-    .checklist { grid-template-columns: 1fr; }
-    .schedule-frame { margin: 0 -12px; border-radius: 8px; }
-    .section, .section-intro { padding: 40px 20px; }
-    .cover-content { padding: 24px; }
-    .day-number { font-size: 36px; }
+
+    /* 整体容器 */
+    .section, .section-intro { padding: 36px 18px; }
+    .cover-content { padding: 28px 20px; }
     .cover-scroll { display: none; }
-    .citywalk-link { display: block; text-align: center; }
+
+    /* 封面 */
+    .cover { min-height: 100svh; }
+    .cover-eyebrow { font-size: 10px; letter-spacing: 3px; margin-bottom: 16px; }
+    .cover h1 { font-size: 30px; line-height: 1.25; margin-bottom: 12px; }
+    .cover h1 span { font-size: 12px; margin-top: 6px; letter-spacing: 2px; }
+    .cover-subtitle { font-size: 13px; letter-spacing: 1px; }
+    .cover-date { font-size: 11px; letter-spacing: 4px; margin-top: 20px; }
+
+    /* Photo Grid 横向滑动 */
+    .photo-grid {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 12px;
+      padding-bottom: 12px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .photo-grid::-webkit-scrollbar { display: none; }
+    .photo-card {
+      flex: 0 0 78vw;
+      height: 220px;
+      scroll-snap-align: start;
+    }
+
+    /* Day Section */
+    .day-number { font-size: 38px; }
+    .day-meta h3 { font-size: 15px; }
+    .day-content p { font-size: 14px; line-height: 1.8; }
+    .day-section { margin-bottom: 40px; }
+
+    /* 行程分线卡片 */
+    .split-routes { grid-template-columns: 1fr; gap: 12px; }
+    .route-card { padding: 18px 16px; }
+
+    /* 行前清单 */
+    .checklist { grid-template-columns: 1fr; gap: 10px; }
+    .check-item { padding: 14px 16px; font-size: 13.5px; }
+    .check-icon { width: 32px; height: 32px; font-size: 15px; }
+
+    /* 行程总表 */
+    .schedule-frame { margin: 0 -18px; border-radius: 8px; overflow-x: auto; }
+
+    /* City Walk 框 */
+    .citywalk-box { padding: 14px 16px; }
+    .citywalk-link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      padding: 13px 0;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    /* 美食提示框 */
+    .food-tip { padding: 16px 18px; font-size: 13.5px; }
+
+    /* 高亮框 */
+    .highlight-box { padding: 14px 16px; }
+
+    /* 地图按钮全宽 */
+    .map-link {
+      display: block;
+      text-align: center;
+      width: 100%;
+      padding: 14px 0;
+      font-size: 13px;
+      margin: 20px 0;
+    }
+
+    /* 分节标题 */
+    .section-label { font-size: 10px; }
+    h2 { font-size: 22px; }
+    .story-text { font-size: 14px; line-height: 1.9; }
+
+    /* footer */
+    .footer { padding: 36px 20px; }
   }
 
   /* ===== PRINT ===== */
